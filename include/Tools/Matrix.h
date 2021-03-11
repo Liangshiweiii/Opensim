@@ -12,7 +12,7 @@ class Matrix /// Matrix template class. Can handle any type of values
  public:
     Matrix()
     {
-        Array = nullptr;
+        Array = nullptr;//这里的 nullptr是空指针的意思
     }
     Matrix(const int nx, const int ny)
     {

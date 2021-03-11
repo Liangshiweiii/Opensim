@@ -153,7 +153,7 @@ void ElasticitySteinbach::CalculateDrivingForce(PhaseField& Phase,
 
 void ElasticitySteinbach::CalculateChemicalPotentialContribution(PhaseField& Phase,
                                                         ElasticProperties& EP,
-                                            EquilibriumPartitionDiffusion& DF)
+                                            Diffusion& DF)
 {
     const int Nphases = EP.Nphases;
     const int Ncomp = EP.Ncomp;

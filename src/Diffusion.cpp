@@ -25,7 +25,7 @@ namespace opensim
     void Diffusion::Initialize(const Settings& locSettings,
             const int boundary)
     {
-        thisclassname = "Diffsion";
+        thisclassname = "Diffusion";
         //DefaultInputFileName = ProjectInputDir + "DiffusionInput.opi";
 
         Nphases = locSettings.Nphases;
@@ -84,7 +84,7 @@ namespace opensim
             exit(1);
         };
 
-        Info::WriteLineInsert("Diffsion properties");
+        Info::WriteLineInsert("Diffusion properties");
         Info::WriteStandard("Source", InputFileName);
         
         int moduleLocation = UserInterface::FindModuleLocation(inp, thisclassname);
@@ -273,7 +273,7 @@ namespace opensim
         }
     }
 
-    void Diffsion::CalculatePhaseConcentrations(PhaseField& Phase,
+    void Diffusion::CalculatePhaseConcentrations(PhaseField& Phase,
                                         Temperature& Tx, Composition& Elements)
     {
         OMP_PARALLEL_STORAGE_LOOP_BEGIN(i,j,k,Elements.Total,Elements.Total.Bcells(),)
@@ -283,7 +283,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::SetDiffusionCoefficients(PhaseField& Phase,
+    void Diffusion::SetDiffusionCoefficients(PhaseField& Phase,
                                                                     Temperature& Tx)
     {
         OMP_PARALLEL_STORAGE_LOOP_BEGIN(i,j,k,DC,DC.Bcells(),)
@@ -297,7 +297,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::GetDrivingForce(PhaseField& Phase,
+    void Diffusion::GetDrivingForce(PhaseField& Phase,
                                                         Composition& Elements,
                                                         Temperature& Tx,
                                                         DrivingForce& dGab)
@@ -306,7 +306,7 @@ namespace opensim
         GetDrivingForceLoop(Phase, Elements, Tx, dGab);
     }
 
-    void Diffsion::GetDrivingForceLoop(PhaseField& Phase,
+    void Diffusion::GetDrivingForceLoop(PhaseField& Phase,
                                                         Composition& Elements,
                                                         Temperature& Tx,
                                                         DrivingForce& dGab)
@@ -340,7 +340,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    double Diffsion::GetDrivingForceAlpha(PhaseField& Phase,
+    double Diffusion::GetDrivingForceAlpha(PhaseField& Phase,
                                                             Composition& Elements,
                                                             Temperature& Tx, int alpha,
                                                             int i, int j, int k)
@@ -371,7 +371,7 @@ namespace opensim
     }
 
 
-    void Diffsion::RestoreStoichiometric(PhaseField& Phase,
+    void Diffusion::RestoreStoichiometric(PhaseField& Phase,
                                                             Temperature& Tx,
                                                             Composition& Elements)
     {
@@ -428,7 +428,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::RestoreStoichiometricThreadSafe(PhaseField& Phase,
+    void Diffusion::RestoreStoichiometricThreadSafe(PhaseField& Phase,
                                                             Temperature& Tx,
                                                             Composition& Elements)
     {
@@ -522,7 +522,7 @@ namespace opensim
     }
 
 
-    void Diffsion::Remesh(int newNx, int newNy, int newNz)
+    void Diffusion::Remesh(int newNx, int newNy, int newNz)
     {
         DC.Reallocate(newNx, newNy, newNz);
         dMu.Reallocate(newNx, newNy, newNz);
@@ -534,7 +534,7 @@ namespace opensim
         Info::WriteStandard(thisclassname, "Remeshed!");
     }
 
-    void Diffsion::CalculateInterfaceMobility(PhaseField& Phase,
+    void Diffusion::CalculateInterfaceMobility(PhaseField& Phase,
                                 Composition& Elements, BoundaryConditions& BC, InterfaceMobility& IMobility)
     {
         OMP_PARALLEL_STORAGE_LOOP_BEGIN(i,j,k,Elements.Total,Elements.Total.Bcells(),)
@@ -589,7 +589,7 @@ namespace opensim
         //IMobility.Average(Phase, BC);
     }
 
-    double Diffsion::SetInitialComposition(PhaseField& Phase,
+    double Diffusion::SetInitialComposition(PhaseField& Phase,
                                                             Composition& Elements)
     {
         double total = 0.0;
@@ -615,7 +615,7 @@ namespace opensim
 
     // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NEW >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    void Diffsion::CalculateAntitrappingIncrements(PhaseField& Phase,
+    void Diffusion::CalculateAntitrappingIncrements(PhaseField& Phase,
                                                             Composition& Elements)
     {
         const double koef = Eta/Pi;
@@ -701,7 +701,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::LimitAntitrappingIncrements(PhaseField& Phase,
+    void Diffusion::LimitAntitrappingIncrements(PhaseField& Phase,
                                                             Composition& Elements,
                                                             Temperature& Tx)
     {
@@ -812,7 +812,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::LimitAntitrappingIncrementsThreadSafe(PhaseField& Phase,
+    void Diffusion::LimitAntitrappingIncrementsThreadSafe(PhaseField& Phase,
                                                             Composition& Elements,
                                                             Temperature& Tx)
     {
@@ -939,7 +939,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::CalculateDiffusionIncrements(PhaseField& Phase,
+    void Diffusion::CalculateDiffusionIncrements(PhaseField& Phase,
                                                             Composition& Elements,
                                                             Temperature& Tx)
     {
@@ -1032,7 +1032,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::CalculateLimits(PhaseField& Phase,
+    void Diffusion::CalculateLimits(PhaseField& Phase,
                                                 Composition& Elements, double dt)
     {
         bool ompLimitingNeeded = false;
@@ -1135,7 +1135,7 @@ namespace opensim
         LimitingNeeded = ompLimitingNeeded;
     }
 
-    void Diffsion::LimitDiffusionIncrements(PhaseField& Phase,
+    void Diffusion::LimitDiffusionIncrements(PhaseField& Phase,
                                                             Composition& Elements,
                                                             Temperature& Tx)
     {
@@ -1296,7 +1296,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
     }
 
-    void Diffsion::ApplyIncrements(PhaseField& Phase,
+    void Diffusion::ApplyIncrements(PhaseField& Phase,
                                                 Composition& Elements, double dt)
     {
         double ompTotalMass = 0.0;
@@ -1332,7 +1332,7 @@ namespace opensim
         TotalMass = ompTotalMass;
     }
 
-    void Diffsion::Solve(PhaseField& Phase,
+    void Diffusion::Solve(PhaseField& Phase,
                         Composition& Elements, Temperature& Tx,
                         BoundaryConditions& BC, double dt,
                         bool InternalDiffusivities)
@@ -1367,7 +1367,7 @@ namespace opensim
         }
     }
 
-    void Diffsion::PrintPointStatistics(int x, int y, int z)
+    void Diffusion::PrintPointStatistics(int x, int y, int z)
     {
         cout << "Diffusion Coefficients:" << endl;
         for (int n = 0; n < Nphases; n++)
@@ -1377,7 +1377,7 @@ namespace opensim
         cout << endl;
     }
 
-    double Diffsion::ReportMaximumTimestep(PhaseField& Phase)
+    double Diffusion::ReportMaximumTimestep(PhaseField& Phase)
     {
         double maxDC = 0.0;
 

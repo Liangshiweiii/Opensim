@@ -128,7 +128,7 @@ namespace opensim
         Finalize(Bc);
         Info::WriteStandard(thisclassname, "Binary input loaded");
     }
-
+    //将相场信息返回到一个整数存储
     int PhaseField::AddGrainInfo(int PhaseIndex)
     {
         int locIndex = FieldsStatistics.add_grain(PhaseIndex);

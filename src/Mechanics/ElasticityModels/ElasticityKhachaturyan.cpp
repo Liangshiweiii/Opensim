@@ -114,7 +114,7 @@ void ElasticityKhachaturyan::CalculateDrivingForce(PhaseField& Phase,
 
 void ElasticityKhachaturyan::CalculateChemicalPotentialContribution(PhaseField& Phase,
                                                           ElasticProperties& EP,
-                                              EquilibriumPartitionDiffusion& DF)
+                                              Diffusion& DF)
 {
     const int Nphases = EP.Nphases;
     const int Ncomp = EP.Ncomp;

@@ -23,7 +23,7 @@ class Composition;
 class DamageProperties;
 class DrivingForce;
 class ElasticProperties;
-class EquilibriumPartitionDiffusion;
+class Diffusion;
 class Orientations;
 class PhaseField;
 class Plasticity;
@@ -49,7 +49,7 @@ class ElasticitySteinbach                                                       
     
     static void CalculateChemicalPotentialContribution(PhaseField& Phase,
                                            ElasticProperties& EP,
-                                           EquilibriumPartitionDiffusion& DF);
+                                           Diffusion& DF);
     //static void CalculateChemicalPotentialContrib(PhaseField& Phase,
     //                          ElasticProperties& EP, ThermodynamicProperties& TP);
 

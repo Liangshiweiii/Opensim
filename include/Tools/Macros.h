@@ -20,7 +20,7 @@
 
 #define STORAGE_LOOP_END \
     } \
-}
+}          //使用宏初始化结构体
 
 #define STRINGIFY(...) #__VA_ARGS__
 

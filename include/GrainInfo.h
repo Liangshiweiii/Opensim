@@ -8,31 +8,31 @@
 namespace opensim
 {
 
-class Grain                                                                     ///< Stores information about the grain (phasefield). Used as the storage bit in the GrainInfo class
+class Grain                                                                     ///<存储关于grain (phasefield)的信息，用作GrainInfo类中的存储空间
 {
  public:
-    long double MAXVolume;                                                      ///< Maximum volume of the phase field during the simulation
-    long double Volume;                                                         ///< Total volume of the grain
-    double      Density;                                                        ///< Average density of the grain
-    double      WettingParameter;                                               ///< Wetting parameter for Benzi force in LBM
-    dVector3    Rcm;                                                            ///< Coordinates of the center of mass
-    dVector3    Vcm;                                                            ///< Velocity of the center of mass
-    dVector3    Acm;                                                            ///< Acceleration of the center of mass
-    dVector3    aVel;                                                           ///< Angular velocity
-    dVector3    aAcc;                                                           ///< Angular acceleration
-    dVector3    Force;                                                          ///< Force acting on the grain
-    dVector3    Torque;                                                         ///< Torque applied to the grain
-    dMatrix3x3  InertiaM;                                                       ///< Tensor of the moment of inertia
-    Quaternion  Orientation;                                                    ///< Orientation of the grain with respect to a reference frame
+    long double MAXVolume;                                                      ///< 模拟过程中相场的最大体积
+    long double Volume;                                                         ///< 空间的总容积
+    double      Density;                                                        ///< 晶粒平均密度
+    double      WettingParameter;                                               ///< LBM中本兹力的润湿参数
+    dVector3    Rcm;                                                            ///< 质心的坐标
+    dVector3    Vcm;                                                            ///< 质心的速度
+    dVector3    Acm;                                                            ///< 质心的加速度
+    dVector3    aVel;                                                           ///< 角速度
+    dVector3    aAcc;                                                           ///< 角加速度
+    dVector3    Force;                                                          ///< 作用在纹理上的力
+    dVector3    Torque;                                                         ///< 施加在晶粒上的扭矩
+    dMatrix3x3  InertiaM;                                                       ///< 转动惯量张量
+    Quaternion  Orientation;                                                    ///< 纹理相对于参照系的方向
 
-    int Exist;                                                                  ///< True if the phase field exists in the simulation domain
-    int IsMobile;                                                               ///< True if grain can move. Relevant for solid-liquid coupled motion
-    int Phase;                                                                  ///< Thermodynamic phase for a given phase field
-    int Stage;                                                                  ///< Grain stage: 1 -> nucleus, 0 -> full size grain.
-    int State;                                                                  ///< Aggregate state of the phase (Solid, Liquid or Gas).
-    int Variant;                                                                ///< Symmetry variant of a given thermodynamic phase
+    int Exist;                                                                  ///< 如果仿真域中存在相场，则为“真”
+    int IsMobile;                                                               ///< 如果晶粒能移动，那就对了。与固液耦合运动相关
+    int Phase;                                                                  ///< 给定相场的热力学相
+    int Stage;                                                                  ///< 晶粒阶段:1 ->核，0 ->全尺寸晶粒。
+    int State;                                                                  ///< 相(固体、液体或气体)的聚集状态。
+    int Variant;                                                                ///< 给定热力学相的对称变体
 
-    void Read(std::fstream& In)                                                 ///< Reads grains info from a given file stream
+    void Read(std::fstream& In)                                                 ///< 从给定的文件流读取晶体信息
     {
         In >> State;
         In >> Stage;
@@ -54,7 +54,7 @@ class Grain                                                                     
         Orientation.set(Q[0], Q[1], Q[2], Q[3]);
     }
 
-    void Write(std::ostream& Out) const                                         ///< Writes grains info to a given file stream
+    void Write(std::ostream& Out) const                                         ///< 将晶体信息写入给定的文件流
     {
         Out << State    << std::endl;
         Out << Stage    << std::endl;
@@ -74,9 +74,9 @@ class Grain                                                                     
         Out << Orientation[0]   << " " << Orientation[1]   << " " << Orientation[2]   << " " << Orientation[3] << std::endl;
     }
 
-    void WriteTable(std::ostream& Out, const int tStep, const char sep = ',') const ///< Writes Statistics into csv Out
+    void WriteTable(std::ostream& Out, const int tStep, const char sep = ',') const ///< 将信息写入csv输出
     {
-        // Write header
+        // 写标题
         if (tStep == 0)
         {
             Out  << "Time"       << sep
@@ -105,12 +105,12 @@ class Grain                                                                     
         Out << Orientation[0]   << sep << Orientation[1]   << sep << Orientation[2]   << sep << Orientation[3] << std::endl;
     }
 
-    Grain()                                                                     ///< Constructor - sets all values to their default values
+    Grain()                                                                     ///< 构造函数-设置所有值为默认值
     {
         Clear();
     }
 
-    void Clear()                                                                ///< Clears the grains information
+    void Clear()                                                                ///< 清除晶粒信息
     {
         State = Solid;
         Stage = 0;

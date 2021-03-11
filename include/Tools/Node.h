@@ -32,10 +32,10 @@ struct FieldEntry                                                               
 };
 
 /**********************************************************/
-class Node                                                                      ///< Stores the phase fields and their derivatives, velocities, etc. at a grid point. Provide access and manipulation methods for the phase field entries.
+class Node                                                                      ///< 在网格点中储存相场的数值以及它们的倒数等等，提供了一个很好的途径和方法来处理相场的输入
 {
  public:
-    Node()                                                                      ///< Constructor used to allocate space for at least 3 fields
+    Node()                                                                      ///<构造函数，用于为至少3个字段分配空间
     {
         Fields.reserve(3);
         flag = 0;
@@ -44,7 +44,7 @@ class Node                                                                      
     {
 
     }
-    double operator[](const int n) const;                                       ///< Index operator for accessing the n's field value
+    double operator[](const int n) const;                                       ///< 用于访问n的相场值的索引操作符
 
     Node   operator+(const  Node& n) const;                                     ///< Plus operator. Takes as input another Node type entry.
     Node   operator-(const  Node& n) const;                                     ///< Minus operator. Takes as input another Node type entry.

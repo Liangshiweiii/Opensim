@@ -33,7 +33,7 @@ class PlasticProperties;
 class Velocities;
 class DamageProperties;
 class DrivingForce;
-class EquilibriumPartitionDiffusion;
+class Diffusion;
 class InterfaceEnergy;
 
 const int FreeBoundaries = 0;
@@ -72,7 +72,7 @@ class ElasticProperties : public OPObject                                       
     void CalculateDrivingForce(PhaseField& Phase, DrivingForce& dGab);          ///< Calculates elastic driving force
     void CalculateDrivingForceLimited(PhaseField& Phase, DrivingForce& dGab);   ///< Calculates elastic driving force limited by Neuber approximation
     void CalculateChemicalPotentialContribution(PhaseField& Phase,
-                                             EquilibriumPartitionDiffusion& DF);///< Calculates chemical potential contribution
+                                             Diffusion& DF);///< Calculates chemical potential contribution
     void CalculateInterfaceEnergyContribution(PhaseField& Phase, InterfaceEnergy& IE);///< Calculates interface energy contribution
     double Energy(void);                                                        ///< Average elastic energy density in Joule/<simulation cell>
     double PointEnergy(int i, int j, int k);                                    ///< Returns elastic energy in a given point

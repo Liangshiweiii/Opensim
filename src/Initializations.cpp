@@ -503,7 +503,7 @@ int Initializations::Zlayer(PhaseField& Phase, int PhaseIndex, int Position,
     Phase.Finalize(BC);
     return index;
 }
-
+//Fractions---两组分体系的初始化。
 vector<int> Initializations::Fractional(PhaseField& Phase,
                                  int MajorityPhaseIndex, int MinorityPhaseIndex,
                                  double MinorityPhaseLayerThickness,
@@ -517,7 +517,7 @@ vector<int> Initializations::Fractional(PhaseField& Phase,
                 "Z-direction for Fractional initialization", "Initializations", "Fractional");
     }
 
-    double iWidth = locSettings.iWidth;
+    double iWidth = locSettings.iWidth;              //界面宽度初始化
 
     int index1 = Phase.AddGrainInfo(MajorityPhaseIndex);
     int index2 = Phase.AddGrainInfo(MinorityPhaseIndex);
@@ -543,7 +543,7 @@ vector<int> Initializations::Fractional(PhaseField& Phase,
             Phase.Fields(i, j, k).set(index2, IntProf);
             Phase.Fields(i,j,k).flag = 2;
         }
-    }
+    }                   //使用宏来初始化结构体
     STORAGE_LOOP_END
 
     Phase.Finalize(BC);

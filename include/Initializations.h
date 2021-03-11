@@ -127,6 +127,12 @@ namespace opensim{
                 const BoundaryConditions& BC);                                      ///< 从可能不同大小的文件中读取原始(二进制)相位字段的子集，粘贴到自定义位置
 
         private:
+        static void Disc(PhaseField& Phase, int PhaseIndex, double Radius,
+                int NormalAxis, double x0, double y0, double z0,
+                Settings& locSettings);                                             /// 初始化2D磁盘，只在其他初始化函数中使用，在结束时不调用Phi.Finalize()
+        static void SphereFixedIdx(PhaseField& Phase, int PhaseIndex, double Radius,///初始化一个二维数据，只在其他初始化函数中使用，最后不需要调用析构函数
+                double x0, double y0, double z0, BoundaryConditions& BC,
+                Settings& locSettings);
     };
 }
 

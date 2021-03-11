@@ -119,7 +119,7 @@ namespace opensim
         OMP_PARALLEL_STORAGE_LOOP_END
 
         SetBoundaryConditions(BC);
-    }
+    }              //使用宏来初始化结构体--即初始情况下体系中的温度数值
 
     void Temperature::Set(const BoundaryConditions& BC, const double dt)
     {

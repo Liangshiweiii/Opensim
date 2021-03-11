@@ -18,7 +18,7 @@
 #define FLOWSOLVERLBM_H
 
 //#include "Base/Includes.h"
-#include "Base/Node.h"
+#include "Tools/Node.h"
 #include "GrainInfo.h"
 #include "FluidDynamics/D3Q27.h"
 namespace openphase

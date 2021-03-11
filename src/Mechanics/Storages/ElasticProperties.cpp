@@ -25,10 +25,10 @@
 #include "Compositions.h"
 #include "Orientations.h"
 #include "DrivingForce.h"
-#include "EquilibriumPartitionDiffusion.h"
+#include "Diffusion.h"
 #include "Settings.h"
 #include "BoundaryConditions.h"
-#include "Temperature.h"
+#include "Temperatures.h"
 #include "Tools/UserInterface.h"
 #include "Velocities.h"
 #include "VTK.h"
@@ -901,7 +901,7 @@ void ElasticProperties::CalculateDrivingForce(PhaseField& Phase, DrivingForce& d
 }
 
 void ElasticProperties::CalculateChemicalPotentialContribution(PhaseField& Phase,
-                                              EquilibriumPartitionDiffusion& DF)
+                                              Diffusion& DF)
 {
     switch(ElasticityModel)
     {

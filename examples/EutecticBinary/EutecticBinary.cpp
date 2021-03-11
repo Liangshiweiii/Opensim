@@ -66,14 +66,14 @@ int main(int argc, char *argv[]){
         MySettings.tStart = -1;
         int iR = (MySettings.Nx)/4;
         //single lamella
-        Initializations::Fractional(Phase, 0, 1, iR/2, Bc, MySettings);
-        Initializations::Sphere(Phase, 2, iR, (MySettings.Nx)/2, (MySettings.Ny)/2, 0, Bc, MySettings);
+        Initializations::Fractional(Phase, 0, 1, iR/2, Bc, MySettings);                //二元共晶体系的初始化
+        Initializations::Sphere(Phase, 2, iR, (MySettings.Nx)/2, (MySettings.Ny)/2, 0, Bc, MySettings);           //圆形初晶相的初始化
 
-        Df.SetInitialComposition(Phase, Cx);
-        Tx.SetInitial(Bc, Phase, 0);
+        Df.SetInitialComposition(Phase, Cx);                    //设置初始状态的成分值
+        Tx.SetInitial(Bc, Phase, 0);                            //设置初始状态的温度值
     }
     cout << "进入时间循环！" << endl;
-    //-------------------------------时间循环----------------------------------//
+    //-------------------------------进入循环----------------------------------//
     for(int tStart = MySettings.tStart + 1; tStart < MySettings.nSteps + 1; tStart++){
 
         Tm.SetStart();

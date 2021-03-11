@@ -48,7 +48,7 @@ namespace opensim
 inline void simulation_end()
 {
 #ifdef _WIN32
-    std::getchar();                                                             ///< Prevents closing of the terminal window at the end of the simulation
+    std::getchar();                                                             ///< 在模拟的最后保持命令窗口
 #endif // _WIN32
 }
 
@@ -59,20 +59,20 @@ inline void simulation_end()
 #endif
 
 //#ifndef Pi
-const double Pi = 3.14159265358979323846;                                       ///< Pi constant value
+const double Pi = 3.14159265358979323846;                                       ///< 常数值Pi
 //#endif
 
-const std::complex< double > I(0.0, 1.0);                                       ///< sqrt(-1) declaration
+const std::complex< double > I(0.0, 1.0);                                       ///< 虚数I^2=-1的声明
 
 
-typedef double (*ThermoDynFnctPtr)(std::vector<double>& nu, double T);          ///< Multi component thermodynamic function, takes a vector of density/concentration values as input
+typedef double (*ThermoDynFnctPtr)(std::vector<double>& nu, double T);          ///< 多元热力学函数, 需要输入密度或者浓度的矢量值
 typedef double (*CPAnalyticFnctPtr)(std::vector<double>& nu, double T, double P);///< Multi component thermodynamic function, takes a vector of density/concentration values as input
 
-// Special keywords definition
+// 特殊关键字的定义
 const int Default = 0;
 const int Random = 1;
 
-//Aggregate state markers
+//状态标志的合计
 const int Solid  = 0;
 const int Liquid = 1;
 const int Gas    = 3;
@@ -84,7 +84,7 @@ const int SolidLiquid  = 1; /*Solid + Liquid*/
 const int SolidGas     = 3; /*Solid + Gas*/
 const int LiquidGas    = 4; /*Liquid + Gas*/
 
-// Schemes for advection
+// 平流方案
 const int Upwind      = 0;
 const int LaxWendroff = 1;
 const int VanLeer     = 2;
