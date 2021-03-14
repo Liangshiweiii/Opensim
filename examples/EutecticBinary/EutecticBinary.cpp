@@ -31,25 +31,25 @@ int main(int argc, char *argv[]){
     Diffusion Df;
     TimeInfo Tm;//todo
     //Initialize modules obj's initialization
-    MySettings.Initialize();
-    MySettings.ReadInput();
-    Mb.Initialize(MySettings);
-    Sigma.Initialize(MySettings);
-    Phase.Initialize(MySettings);
-    dG.Initialize(MySettings);
-    Dob.Initialize(MySettings);
-    Df.Initialize(MySettings);
-    Tx.Initialize(MySettings);
-    Bc.Initialize(MySettings);
-    Cx.Initialize(MySettings);
-    Tm.Initialize(MySettings, "去除时间统计");
+    MySettings.Initialize();                  //基础设定模块的初始化
+    MySettings.ReadInput();                   //基础设定模块从文件输入
+    Mb.Initialize(MySettings);                //界面模块的初始化  
+    Sigma.Initialize(MySettings);             //界面能模块的初始化 
+    Phase.Initialize(MySettings);             //相场模块的初始化
+    dG.Initialize(MySettings);                //驱动力模块的初始化
+    Dob.Initialize(MySettings);               //双井势模块的初始化 
+    Df.Initialize(MySettings);                //扩散模块的初始化
+    Tx.Initialize(MySettings);                //温度模块的初始化
+    Bc.Initialize(MySettings);                //边界条件模块的初始化
+    Cx.Initialize(MySettings);                //成分模块的初始化
+    Tm.Initialize(MySettings, "去除时间统计"); //时间模块的初始化
 
-    Df.ReadInput();
-    Cx.ReadInput();
-    dG.ReadInput();
-    Tx.ReadInput();
-    Bc.ReadInput();
-    Mb.ReadInput();
+    Df.ReadInput();                           //扩散数据的输入
+    Cx.ReadInput();                           //成分数据的输入
+    dG.ReadInput();                           //驱动力数据的输入
+    Tx.ReadInput();                           //温度数据的输入
+    Bc.ReadInput();                           //边界数据的输入
+    Mb.ReadInput();                           //界面扩散数据的输入
     
     cout << "初始化过程结束！" << endl;
     
@@ -69,39 +69,39 @@ int main(int argc, char *argv[]){
         Initializations::Fractional(Phase, 0, 1, iR/2, Bc, MySettings);                //二元共晶体系的初始化
         Initializations::Sphere(Phase, 2, iR, (MySettings.Nx)/2, (MySettings.Ny)/2, 0, Bc, MySettings);           //圆形初晶相的初始化
 
-        Df.SetInitialComposition(Phase, Cx);                    //设置初始状态的成分值
-        Tx.SetInitial(Bc, Phase, 0);                            //设置初始状态的温度值
+        Df.SetInitialComposition(Phase, Cx);                       //设置体系初始状态的成分值
+        Tx.SetInitial(Bc, Phase, 0);                               //设置体系初始状态的温度值
     }
-    cout << "进入时间循环！" << endl;
+    cout << "进入循环！" << endl;
     //-------------------------------进入循环----------------------------------//
     for(int tStart = MySettings.tStart + 1; tStart < MySettings.nSteps + 1; tStart++){
 
-        Tm.SetStart();
-            Sigma.CalculateCubic(Phase);
-            Mb.CalculateCubic(Phase);
+        Tm.SetStart();                                              //程序开始时间计时
+            Sigma.CalculateCubic(Phase);                            //求出最大接界面能的循环
+            Mb.CalculateCubic(Phase);                               //求出最大界面移动性参数
         Tm.SetTimeStamp("界面的能量和移动性计算");
-            Df.SetPhaseFractions(Phase);
+            Df.SetPhaseFractions(Phase);                            //设置每个点的热力学相分数
             double I_En = 0.0;
         Tm.SetTimeStamp("设置相分数");
-            if(!(tStart%MySettings.tScreenWrite))
+            if(!(tStart%MySettings.tScreenWrite))                   //输出到屏幕的时间步判断
                 I_En = Dob.Energy(Phase, Sigma);
-            Dob.CalculatePhaseFieldIncrements(Phase, Sigma, Mb);
+            Dob.CalculatePhaseFieldIncrements(Phase, Sigma, Mb);    //计算单位时间相场的增量，即偏微分dphi/dt
         Tm.SetTimeStamp("计算相场增量");
-            Df.GetDrivingForce(Phase, Cx, Tx, dG);
+            Df.GetDrivingForce(Phase, Cx, Tx, dG);                  //每个点相的组成以及驱动力dG的计算
         Tm.SetTimeStamp("得到驱动力");
-            dG.Average(Phase, Bc);
-        Tm.SetTimeStamp("驱动力平均");
-            if(!(tStart%MySettings.tFileWrite))
-            dG.WriteVTKforPhases(Phase, tStart);
-            dG.MergePhaseFieldIncrements(Phase, Sigma, Mb);
+            dG.Average(Phase, Bc);                                   //施加边界条件，计算平均相场
+        Tm.SetTimeStamp("设置边界条件，计算平均");
+            if(!(tStart%MySettings.tFileWrite))                      //判断是否等于输出时间步输出计算结果到文件
+            dG.WriteVTKforPhases(Phase, tStart);                     //将相场信息输入到VTK文件中
+            dG.MergePhaseFieldIncrements(Phase, Sigma, Mb);          //计算相场增量，同时考虑驱动力以及相的限制
         Tm.SetTimeStamp("合并相场增量");
-            Phase.NormalizeIncrements(Bc, MySettings.dt);
+            Phase.NormalizeIncrements(Bc, MySettings.dt);             //将相场变量的数值标准化限制在（0,1）之间
         Tm.SetTimeStamp("增量标准化");
-            Df.Solve(Phase, Cx, Tx, Bc, MySettings.dt);
+            Df.Solve(Phase, Cx, Tx, Bc, MySettings.dt);               //在相场，组成，边界条件同时作用下，求解相成分
         Tm.SetTimeStamp("求解计算");
-            Tx.Set(Bc, MySettings.dt);
+            Tx.Set(Bc, MySettings.dt);                                //温度的迭代求解
         Tm.SetTimeStamp("温度设置");
-            Phase.MergeIncrements(Bc, MySettings.dt);
+            Phase.MergeIncrements(Bc, MySettings.dt);                 //计算合并增量后的各项数值，包括边界条件，flag位置，梯度数值，体积和分数。
         Tm.SetTimeStamp("合并相场增量");
             if (Phase.Fields((MySettings.Nx)/4, (MySettings.Ny)/2, (MySettings.Nz)/2)[0] <= 0.4){
                 //Phase.MoveFrame(0,0,1, Bc);
@@ -130,11 +130,11 @@ int main(int argc, char *argv[]){
                      << "实际时间  : " << ctime(&rawtime) << "\n";
                 cout << "================================\n"               
                      << "界面能    : " << I_En << "\n"
-                     << "=============================\n" << endl;  
+                     << "=============================\n" << endl;  //将时间等计算信息输出到屏幕
            
-                dG.PrintDiagnostics();
-                Phase.PrintPFVolumes();
-                Tm.PrintWallClockSummary();                      //将时间步、界面能、自由能、体积等参数输出到屏幕上
+                dG.PrintDiagnostics();                              //判断驱动力极限的函数
+                Phase.PrintPFVolumes();                             //输出相的空间体积
+                Tm.PrintWallClockSummary();                         //将时间步、界面能、自由能、体积等参数输出到屏幕上
             }
     } //结束循环
     return 0;

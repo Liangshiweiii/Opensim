@@ -39,8 +39,8 @@ void Settings::ReadInput(string InputFileName)
         exit(1);
     };
 
-    Info::WriteLine();
-    Info::WriteLine();
+    Info::WriteLine();                //输出分隔线到屏幕
+    Info::WriteLine();                //输出分隔线到屏幕
     Info::WriteStandard("Global project parameters source", InputFileName);
     
 	int moduleLocation = UserInterface::FindModuleLocation(inp, thisclassname);

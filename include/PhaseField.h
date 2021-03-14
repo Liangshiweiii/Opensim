@@ -91,7 +91,7 @@ class PhaseField : public OPObject                                              
     std::vector<int> ReturnVicinityPhaseFields(const int i,
             const int j, const int k) const;                                    ///< 返回点（i，j，k）和相邻节点处的相场列表
 
-    bool Interface(const int x, const int y, const int z) const                 ///< 指示接口的位置。
+    bool Interface(const int x, const int y, const int z) const                 ///< 指示界面的位置。
     {
         return (Fields(x,y,z).flag > 1);
     };

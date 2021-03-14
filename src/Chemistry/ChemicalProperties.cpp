@@ -82,14 +82,14 @@ void ChemicalProperties::Initialize(Settings& locSettings,
 
     CalculateMolefractionLimits();
 
-    if(locSettings.CP.diffMod == ChemicalProperties::DiffusionModel::EquilibriumPartitioning)
+    if(locSettings.Cp.diffMod == ChemicalProperties::DiffusionModel::EquilibriumPartitioning)
     {
         for(int i = 0; i < Nphases; i++)
         {
             Phase[i].StoichiometricFlag = false;
         }
     }
-    else if(locSettings.CP.diffMod == ChemicalProperties::DiffusionModel::FiniteInterfaceDissipation)
+    else if(locSettings.Cp.diffMod == ChemicalProperties::DiffusionModel::FiniteInterfaceDissipation)
     {
         for(int i = 0; i < Nphases; i++)
         {

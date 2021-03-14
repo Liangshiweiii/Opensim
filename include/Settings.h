@@ -15,7 +15,7 @@ class Settings                                                                  
 {
  public:
     std::string thisclassname;                                                  ///< Object's class name定义模块设置类名
-    //std::string DefaultInputFileName;                                         ///< Default input file name默认为输入的文件名
+    //std::string DefaultInputFileName;                                         ///< Default input file name默认输入的文件名
     std::string UnitsOfLength;                                                  ///< Units of length长度单位
     std::string UnitsOfMass;                                                    ///< Units of mass质量单位
     std::string UnitsOfTime;                                                    ///< Units of time时间单位

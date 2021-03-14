@@ -10,7 +10,7 @@ namespace opensim{
     class ElasticProperties;
     class PhaseField;
 
-    class InterfaceEnergy : public OPobject{
+    class InterfaceEnergy : public OPObject{
         public:
         int Nphases;
         int Nx;

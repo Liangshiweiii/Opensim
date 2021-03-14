@@ -39,7 +39,7 @@ namespace opensim
         Messages.push_back(Message);
     }
 
-    oid TimeInfo::PrintWallClockSummary(void) const
+    void TimeInfo::PrintWallClockSummary(void) const
     {
         Info::WriteLine("=");
         Info::WriteSimple(TimerName);

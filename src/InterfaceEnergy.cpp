@@ -148,15 +148,15 @@ void InterfaceEnergy::SetRaw(const PhaseField& Phase)
 
 void InterfaceEnergy::CalculateCubic(const PhaseField& Phase)
 {
-    double locmaxSigma = 0.0;
+    double locmaxSigma = 0.0;                        //最大的界面能
     const long int boundary = abs((Phase.Fields).Bcells()-1);
     OMP_PARALLEL_STORAGE_LOOP_BEGIN(i,j,k,Phase.Fields, boundary,reduction(max:locmaxSigma))
     {
-        if (Phase.Fields(i,j,k).flag)
+        if (Phase.Fields(i,j,k).flag)               //其中的flag表示的是node所处位置的情况，在界面在体内还是在靠近界面
         {
             clear(i,j,k);
 
-            if (Phase.Interface(i,j,k))
+            if (Phase.Interface(i,j,k))                    //判断界面的位置
             {
                 NodeV locNormals = Phase.Normals(i,j,k);
 

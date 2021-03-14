@@ -14,7 +14,7 @@ class OPObject
     virtual ~OPObject(void);
     std::string thisclassname;                                                  ///< Object's class name对象的类名
     std::string thisobjectname;                                                 ///< Object's name对象名
-    std::string DefaultInputFileName;											///< Default input file name默认输入文件名
+    //std::string DefaultInputFileName;											///< Default input file name默认输入文件名
 
     virtual void Initialize(const Settings& locSettings){};
     virtual void ReadInput(void);                                               ///< Reads input data from the default input file从默认输入文件中读入输入数据
