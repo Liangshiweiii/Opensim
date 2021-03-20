@@ -237,12 +237,12 @@ namespace opensim{
         }
     }
     /**
-     * Initializes a new phase on the negative side of a plane
-     * @param Phase       Phase field
-     * @param Point       Point on plane
-     * @param Orientation Orientation of the plane
-     * @param PhaseIndex  Phase index
-     * @param BC          Boundary conditions
+     * 在平面的反面初始化一个新的相Initializes a new phase on the negative side of a plane
+     * @param Phase       Phase field相场
+     * @param Point       Point on plane平面上的点
+     * @param Orientation Orientation of the plane平面方向
+     * @param PhaseIndex  Phase index序参数
+     * @param BC          Boundary conditions边界条件
      * @param locSettings Project settings
      */
     int Initializations::SectionalPlane(PhaseField& Phase, const int PhaseIndex,
@@ -264,20 +264,20 @@ namespace opensim{
 
         STORAGE_LOOP_BEGIN(i,j,k,Phase.Fields,Phase.Fields.Bcells())
         {
-            const dVector3 x = {double(i),double(j),double(k)}; // position in space
-            const double distance = (x-Point)*n;   // distance from plane
+            const dVector3 x = {double(i),double(j),double(k)}; // 空间位置position in space
+            const double distance = (x-Point)*n;   // 离平面的距离distance from plane
 
-            // if the point is on the negative side
+            // 如果点在反面if the point is on the negative side
             if (distance <= 0.5*iWidth)
             {
-                // if the point is not in the interface
+                // 如果点不在界面上if the point is not in the interface
                 if (distance < - 0.5*iWidth)
                 {
                     Phase.Fields(i, j, k).clear();
                     Phase.Fields(i, j, k).set(locIndex, 1.0);
                     Phase.Fields(i,j,k).flag = 0;
                 }
-                else  // if the point is in the interface
+                else  // 如果点在界面上if the point is in the interface
                 {
                     const double IntProf = 0.5 - 0.5*sin(Pi*(distance)/iWidth);
                     for(auto alpha = Phase.Fields(i,j,k).begin();
@@ -510,7 +510,7 @@ vector<int> Initializations::Fractional(PhaseField& Phase,
                                  BoundaryConditions& BC, Settings& locSettings)
 {
 
-    if( BC.BC0Z != NoFlux || BC.BCNZ != NoFlux )
+    if( BC.BC0Z != NoFlux || BC.BCNZ != NoFlux )                  //判断是否有一个边界不为Noflux类型
     {
         Info::WriteWarning(
                 "Consider NoFlux Boundary condition at least along \n"
@@ -519,10 +519,10 @@ vector<int> Initializations::Fractional(PhaseField& Phase,
 
     double iWidth = locSettings.iWidth;              //界面宽度初始化
 
-    int index1 = Phase.AddGrainInfo(MajorityPhaseIndex);
-    int index2 = Phase.AddGrainInfo(MinorityPhaseIndex);
+    int index1 = Phase.AddGrainInfo(MajorityPhaseIndex);             //相的存储的元素数目
+    int index2 = Phase.AddGrainInfo(MinorityPhaseIndex);             //相的存储的元素数目
 
-    int offset = MinorityPhaseLayerThickness;
+    int offset = MinorityPhaseLayerThickness;                        //劣势相的相层厚度
 
     STORAGE_LOOP_BEGIN(i,j,k,Phase.Fields,Phase.Fields.Bcells())
     {

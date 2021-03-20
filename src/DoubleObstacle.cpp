@@ -50,11 +50,11 @@ void DoubleObstacle::CalculatePhaseFieldIncrements(PhaseField& Phase, InterfaceE
                     double scaleA = 1.0;
                     double scaleB = 1.0;
 
-                    if(Phase.FieldsStatistics[alpha->index].IsNucleus())
+                    if(Phase.FieldsStatistics[alpha->index].IsNucleus())                                   //判断是否形核
                     {
                         scaleA = Phase.FieldsStatistics[alpha->index].MAXVolume/Phase.RefVolume;
                     }
-                    if(Phase.FieldsStatistics[ beta->index].IsNucleus())
+                    if(Phase.FieldsStatistics[ beta->index].IsNucleus())                                    //判断是否形核
                     {
                         scaleB = Phase.FieldsStatistics[ beta->index].MAXVolume/Phase.RefVolume;
                     }

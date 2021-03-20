@@ -66,8 +66,8 @@ int main(int argc, char *argv[]){
         MySettings.tStart = -1;
         int iR = (MySettings.Nx)/4;
         //single lamella
-        Initializations::Fractional(Phase, 0, 1, iR/2, Bc, MySettings);                //二元共晶体系的初始化
-        Initializations::Sphere(Phase, 2, iR, (MySettings.Nx)/2, (MySettings.Ny)/2, 0, Bc, MySettings);           //圆形初晶相的初始化
+        Initializations::Fractional(Phase, 0, 1, iR/2, Bc, MySettings);                                           //二元共晶体系z方向的空间初始化
+        Initializations::Sphere(Phase, 2, iR, (MySettings.Nx)/2, (MySettings.Ny)/2, 0, Bc, MySettings);           //二元共晶体系x，y平面的空间初始化，选择的参考点是底边的中点
 
         Df.SetInitialComposition(Phase, Cx);                       //设置体系初始状态的成分值
         Tx.SetInitial(Bc, Phase, 0);                               //设置体系初始状态的温度值
@@ -89,7 +89,7 @@ int main(int argc, char *argv[]){
         Tm.SetTimeStamp("计算相场增量");
             Df.GetDrivingForce(Phase, Cx, Tx, dG);                  //每个点相的组成以及驱动力dG的计算
         Tm.SetTimeStamp("得到驱动力");
-            dG.Average(Phase, Bc);                                   //施加边界条件，计算平均相场
+            dG.Average(Phase, Bc);                                   //施加边界条件。将垂直于界面的驱动力平均化，使得界面稳定
         Tm.SetTimeStamp("设置边界条件，计算平均");
             if(!(tStart%MySettings.tFileWrite))                      //判断是否等于输出时间步输出计算结果到文件
             dG.WriteVTKforPhases(Phase, tStart);                     //将相场信息输入到VTK文件中

@@ -81,9 +81,9 @@ void DrivingForce::ReadInput(string InputFileName)
 
     int moduleLocation = UserInterface::FindModuleLocation(inp, thisclassname);
 
-    CutOff = UserInterface::ReadParameterD(inp, moduleLocation, string("CutOff"), false, CutOff);
+    CutOff = UserInterface::ReadParameterD(inp, moduleLocation, string("CutOff"), false, CutOff);           //系数，局部多少的驱动力被去除以维持界面的稳定
     Averaging = UserInterface::ReadParameterB(inp, moduleLocation, string("Averg"), false, "Yes");
-    Range = UserInterface::ReadParameterI(inp, moduleLocation, string("Range"), false, Range);
+    Range = UserInterface::ReadParameterI(inp, moduleLocation, string("Range"), false, Range);              
     PhiThreshold = UserInterface::ReadParameterD(inp, moduleLocation, string("Thresh"), false, PhiThreshold);
 
     Info::WriteLine();

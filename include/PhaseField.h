@@ -39,7 +39,7 @@ class PhaseField : public OPObject                                              
     int  AddGrainInfo(int PhaseIndex);                                          ///< 为“PhaseIndex”相位添加新的粒度信息，返回得到的相位字段索引
     void Clear();                                                               ///< 清空相场储存空间
     void CalculateLaplacians(void);                                             ///< 计算拉普拉斯算子并将其存储在相场节点中
-    //Tensor<double,1> Fractions(const int i, const int j, const int k) const;  ///< 返回给定位置的相场分数
+    //Tensor<double,1> Fractions(const int i, const int j, const int k) const;    ///< 返回给定位置的相场分数
     NodeV Gradients(const int i, const int j, const int k) const;               ///< 返回给定位置上所有相场的梯度
     NodeV Normals(const int i, const int j, const int k) const;                 ///< 返回给定位置的所有相场对的界面法线
     NodeV NormalsPhase(const int i, const int j, const int k) const;            ///< 返回给定位置的所有相场对的界面法线
@@ -106,7 +106,7 @@ class PhaseField : public OPObject                                              
     int    Ny;                                                                  ///< 系统的Y维度
     int    Nz;                                                                  ///< 系统的Z维度
     int    Nphases;                                                             ///< 热力学相数
-    double Eta;                                                                 ///< 物理单位的接口宽度
+    double Eta;                                                                 ///< 物理单位的晶界宽度
     double iWidth;                                                              ///< 界面宽度（以网格点为单位）
 
     bool NucleationPresent;                                                     ///< 如果存在任何相的核，则为true，否则为false

@@ -337,7 +337,7 @@ inline void NodeV::add_X(const int n, const double value)
         return;
     }
 
-    VectorEntry NewEntry;
+    VectorEntry NewEntry;           //定义一个用于储存的单元
     NewEntry.index = n;
     NewEntry.indexB = 0;
     NewEntry.X     = value;

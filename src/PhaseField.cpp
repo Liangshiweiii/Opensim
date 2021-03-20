@@ -34,7 +34,7 @@ int PhaseField::Initialize(const Settings& locSettings, unsigned int boundary, i
 
     Nphases = locSettings.Nphases;
 
-    if (df) boundary = max(int(boundary), int((iWidth - 1)));//needed for driving force averaging
+    if (df) boundary = max(int(boundary), int((iWidth - 1)));//需要进行驱动力平均化
 
     Fields.Allocate(Nx, Ny, Nz, boundary);
     FieldsDot.Allocate(Nx, Ny, Nz, boundary);

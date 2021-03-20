@@ -156,7 +156,7 @@ void InterfaceEnergy::CalculateCubic(const PhaseField& Phase)
         {
             clear(i,j,k);
 
-            if (Phase.Interface(i,j,k))                    //判断界面的位置
+            if (Phase.Interface(i,j,k))                    //判断界面的位置,flag是否大于1
             {
                 NodeV locNormals = Phase.Normals(i,j,k);
 
